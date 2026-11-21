@@ -1,0 +1,316 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Private user account profile, favorites, and notification preferences.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 160
+        },
+        "language": {
+          "type": "string",
+          "enum": ["az", "en", "ru"]
+        },
+        "theme": {
+          "type": "string",
+          "enum": ["dark", "light"]
+        },
+        "plan": {
+          "type": "string",
+          "enum": ["free", "pro"]
+        },
+        "favoriteTeams": {
+          "type": "array",
+          "description": "Pinned team IDs (max 20)"
+        },
+        "favoriteLeagues": {
+          "type": "array",
+          "description": "Pinned league IDs (max 10)"
+        },
+        "alertPrefs": {
+          "type": "object",
+          "description": "Channel and event notification preferences"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "displayName", "language", "theme", "plan", "favoriteTeams", "favoriteLeagues", "alertPrefs", "createdAt", "updatedAt"]
+    },
+    "UserCoupon": {
+      "title": "UserCoupon",
+      "description": "Custom user-built betting analytics coupon evaluated by the AI engine.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "legs": {
+          "type": "array",
+          "description": "Selected legs (1 to 12)"
+        },
+        "combinedOdds": {
+          "type": "number"
+        },
+        "combinedProb": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "title", "legs", "combinedOdds", "combinedProb", "createdAt", "updatedAt"]
+    },
+    "BankrollBet": {
+      "title": "BankrollBet",
+      "description": "Personal bankroll tracker entry with stake, odds, and settlement status.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "matchLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "selection": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "stake": {
+          "type": "number"
+        },
+        "odds": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "won", "lost", "void"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "matchLabel", "selection", "stake", "odds", "status", "createdAt", "updatedAt"]
+    },
+    "ContestPrediction": {
+      "title": "ContestPrediction",
+      "description": "Free Proqnoz Yarisi exact-score prediction submitted by a user.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "matchId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "homeScore": {
+          "type": "number"
+        },
+        "awayScore": {
+          "type": "number"
+        },
+        "points": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "displayName", "matchId", "homeScore", "awayScore", "points", "createdAt", "updatedAt"]
+    },
+    "TipsterFollow": {
+      "title": "TipsterFollow",
+      "description": "Tracks which verified tipsters a user follows.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "tipsterId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "tipsterId", "createdAt"]
+    },
+    "FeatureFlag": {
+      "title": "FeatureFlag",
+      "description": "Admin-managed platform feature flag.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["key", "label", "enabled", "updatedAt"]
+    },
+    "FeaturedPick": {
+      "title": "FeaturedPick",
+      "description": "Public archive and featured analytical pick managed by admins.",
+      "type": "object",
+      "properties": {
+        "matchId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "matchLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "league": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "market": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "selection": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "odds": {
+          "type": "number"
+        },
+        "modelProb": {
+          "type": "number"
+        },
+        "edge": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "won", "lost"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["matchId", "matchLabel", "league", "market", "selection", "odds", "modelProb", "edge", "status", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private user settings, favorites, and alert preferences (owner or admin only)."
+    },
+    "/coupons/{couponId}": {
+      "schema": { "$ref": "#/entities/UserCoupon" },
+      "description": "User-saved analytics coupons (owner scoped)."
+    },
+    "/bankrollBets/{betId}": {
+      "schema": { "$ref": "#/entities/BankrollBet" },
+      "description": "User bankroll tracker bet entries (owner scoped with terminal settlement lock)."
+    },
+    "/contestPredictions/{predictionId}": {
+      "schema": { "$ref": "#/entities/ContestPrediction" },
+      "description": "Free Proqnoz Yarisi predictions submitted by authenticated users."
+    },
+    "/tipsterFollows/{followId}": {
+      "schema": { "$ref": "#/entities/TipsterFollow" },
+      "description": "User follow relationships for verified tipsters."
+    },
+    "/featureFlags/{flagId}": {
+      "schema": { "$ref": "#/entities/FeatureFlag" },
+      "description": "Platform feature flags (public read, admin write)."
+    },
+    "/featuredPicks/{pickId}": {
+      "schema": { "$ref": "#/entities/FeaturedPick" },
+      "description": "Public transparency archive and featured picks (public read, admin write)."
+    }
+  }
+}

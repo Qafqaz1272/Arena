@@ -1,0 +1,6 @@
+{
+  "name": "MatchEdge",
+  "description": "Football analytics and statistical match-prediction dashboard with Poisson, Elo, and form modeling.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
